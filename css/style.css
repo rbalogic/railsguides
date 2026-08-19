@@ -53,12 +53,6 @@ html[data-theme="dark"] {
   --scroll-button-hover: #7a7a7a;
 }
 
-html,
-body {
-  background: var(--page-background);
-  color: var(--text-color);
-}
-
 body {
   margin: 0px;
   background: var(--surface-background);
@@ -462,7 +456,7 @@ kbd {
   border-radius: 3px;
   display: inline-block;
   margin: 0 0.1em;
-  text-shadow: none;
+  text-shadow: 0 1px 0 var(--kbd-shadow);
   line-height: 1.5em;
   white-space: nowrap;
 }
