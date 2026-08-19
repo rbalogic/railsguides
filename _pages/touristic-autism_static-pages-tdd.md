@@ -207,7 +207,7 @@ From this point Pry has access to the local scope. You can type "exit" to exit P
 
 ##Continuous Integration (CI) with Travis-CI
 
-The principle of CI is to commit/push early and often to avoid conflicts between your code and the master branch. When you do (in this case we're committing to GitHub) then that should kick off a 'build' on your CI server which runs the relevant tests to ensure all is working as it should be.
+The principle of CI is to commit/push early and often to avoid conflicts between your code and the main branch. When you do (in this case we're committing to GitHub) then that should kick off a 'build' on your CI server which runs the relevant tests to ensure all is working as it should be.
 
 Travis CI is a hosted continuous integration service for the open source community. It offers free CI services for open-source projects and also has a paid model for businesses. We'll be using the free open-source model on our GitHub repository.
 
@@ -233,7 +233,7 @@ bundler_args: --without development
 
 branches:
   only:
-    - master
+    - main
 
 notifications:
   email:

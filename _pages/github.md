@@ -135,10 +135,10 @@ Copy and save the PAT token, ideally in a secure password manager. Be careful no
 Now we want to _push_ the local changes in the Git repository to the repository on GitHub with the following command in your terminal.
 
 {% highlight sh %}
-git push -u origin master
+git push -u origin main
 {% endhighlight %}
 
-_Your app's branch name may be different, like `main`. Change the "master" argument to the branch name listed in `git branch`. Your current branch is indicated with the `*` symbol at the start of the line._
+_Your app's branch name may be different, like `master` for apps created with older versions of Rails. Change the "main" argument to the branch name listed in `git branch`. Your current branch is indicated with the `*` symbol at the start of the line._
 
 When the authentication prompt appears in your terminal, use your PAT as the password, example below. Note that when you paste your PAT in the password, it will not show. Don't paste again, or you will be entering the token twice.
 
@@ -180,10 +180,10 @@ Talk about what makes a good commit message (active, descriptive and short).
 And push the changes to GitHub:
 
 {% highlight sh %}
-git push origin master
+git push origin main
 {% endhighlight %}
 
-_Your app's branch name may be different, like `main`. Change the "master" argument to the branch name listed in `git branch`. Your current branch is indicated with the `*` symbol at the start of the line._
+_Your app's branch name may be different, like `master` for apps created with older versions of Rails. Change the "main" argument to the branch name listed in `git branch`. Your current branch is indicated with the `*` symbol at the start of the line._
 
 ## What's next?
 

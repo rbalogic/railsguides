@@ -89,7 +89,7 @@ In this case "young-reaches-87845" is your app name.
 
 ### Pushing the code
 
-Next we need to push our code to heroku by typing `git push heroku master`.
+Next we need to push our code to heroku by typing `git push heroku main`.
 You'll see push output like the following:
 
 {% highlight sh %}
@@ -117,7 +117,7 @@ remote:        https://young-reaches-87845.herokuapp.com/ deployed to Heroku
 remote:
 remote: Verifying deploy... done.
 To https://git.heroku.com/young-reaches-87845.git
- * [new branch]      master -> master
+ * [new branch]      main -> main
 {% endhighlight %}
 
 You'll know the app is done being pushed, when you see the "Launching..." text like above.

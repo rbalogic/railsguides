@@ -79,7 +79,7 @@ Push up your local changes to the remote repository as follows:
   <div class="mac nix">
     {% highlight sh %}
 $ git remote add origin https://github.com/<username>/railsgirls-galway-2014.git
-$ git push -u origin master
+$ git push -u origin main
   {% endhighlight %}
   </div>
 The result is a page at GitHub (for instance, [here's mine](https://github.com/iammyr/railsgirls-galway-2014)) for our application repository, which provides nice rendering, sharing functionalities and statistics: take a look by yourself at https://github.com/<your username>/railsgirls-galway-2014

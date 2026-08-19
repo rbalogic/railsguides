@@ -41,7 +41,7 @@ In case you have any test failures however, you can fix those and push the chang
 {% highlight sh %}
 git add .
 git commit -m "fix tests"
-git push origin master
+git push origin main
 {% endhighlight %}
 
 Snap CI will automatically detect the changes from GitHub and run a new instance of the pipeline. At this point you've already started testing your code.

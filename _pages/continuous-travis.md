@@ -51,7 +51,7 @@ Commit and push a code change to your repository and check travis-ci.org to see 
 {% highlight sh %}
 git add .
 git commit -m "test Travis integration"
-git push origin master
+git push origin main
 {% endhighlight %}
 
 Now we can configure the actual deployment.
