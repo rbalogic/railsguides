@@ -2,31 +2,6 @@ function saveOs(os) {
   Cookies.set("os", os, { expires: 1825, path: '/' }); // expires in 5 years
 }
 
-function getPreferredTheme() {
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    return "dark";
-  } else {
-    return "light";
-  }
-}
-
-function getStoredTheme() {
-  try {
-    return localStorage.getItem("theme");
-  } catch(e) {
-    return null;
-  }
-}
-
-function getTheme() {
-  var storedTheme = getStoredTheme();
-  if (storedTheme === "light" || storedTheme === "dark") {
-    return storedTheme;
-  }
-
-  return getPreferredTheme();
-}
-
 function saveTheme(theme) {
   try {
     localStorage.setItem("theme", theme);
@@ -47,7 +22,7 @@ function applyTheme(theme) {
 }
 
 function initializeThemeToggle() {
-  applyTheme(getTheme());
+  updateThemeToggleLabels(document.documentElement.getAttribute("data-theme"));
 
   $("[data-theme-toggle]").click(function() {
     var nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
