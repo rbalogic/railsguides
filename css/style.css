@@ -20,6 +20,7 @@ html {
   --code-border: #e2e2e2;
   --code-text: #2f2f2f;
   --scroll-button-hover: #555555;
+  color-scheme: light;
   background: var(--page-background);
 }
 
@@ -45,6 +46,7 @@ html[data-theme="dark"] {
   --code-border: #2f2f2f;
   --code-text: #f1ece7;
   --scroll-button-hover: #7a7a7a;
+  color-scheme: dark;
 }
 
 body {
