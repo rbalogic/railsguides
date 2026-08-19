@@ -2,6 +2,31 @@ function saveOs(os) {
   Cookies.set("os", os, { expires: 1825, path: '/' }); // expires in 5 years
 }
 
+function saveTheme(theme) {
+  try {
+    localStorage.setItem("theme", theme);
+  } catch(e) {}
+}
+
+function updateThemeToggleLabels(theme) {
+  $("[data-theme-toggle]").text(theme === "dark" ? "Light Mode" : "Dark Mode");
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  updateThemeToggleLabels(theme);
+}
+
+function initializeThemeToggle() {
+  updateThemeToggleLabels(document.documentElement.getAttribute("data-theme"));
+
+  $("[data-theme-toggle]").click(function() {
+    var nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    saveTheme(nextTheme);
+    applyTheme(nextTheme);
+  });
+}
+
 function loadOs() {
   var osFromCookie = Cookies.get("os");
   if(osFromCookie) {
@@ -73,6 +98,7 @@ function initializeOsSwitchers() {
 }
 
 $(document).ready(function() {
+  initializeThemeToggle();
   addIcons();
   initializeOsSwitchers();
   loadOs();
