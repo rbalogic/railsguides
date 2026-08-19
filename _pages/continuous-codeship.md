@@ -34,7 +34,7 @@ Now let's finish your setup and go to the dashboard. You can trigger a so-called
 {% highlight sh %}
 git add .
 git commit -m "test Codeship integration"
-git push origin master
+git push origin main
 {% endhighlight %}
 
 You can access the build details by clicking the arrow on the right. Here you can follow the build while it's still running. Better than reality tv - promised. 
