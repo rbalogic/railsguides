@@ -10,11 +10,15 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0)
     eventmachine (1.2.7)
+    ffi (1.17.0)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x64-mingw-ucrt)
     ffi (1.17.0-x86_64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
     forwardable-extended (2.6.0)
+    google-protobuf (4.27.5)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.27.5-arm64-darwin)
       bigdecimal
       rake (>= 13)
@@ -71,11 +75,32 @@ GEM
     rexml (3.4.2)
     rouge (4.3.0)
     safe_yaml (1.0.5)
+    sass-embedded (1.77.8)
+      google-protobuf (~> 4.26)
+      rake (>= 13)
+    sass-embedded (1.77.8-aarch64-linux-android)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-arm-linux-androideabi)
+      google-protobuf (~> 4.26)
     sass-embedded (1.77.8-arm64-darwin)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-riscv64-linux-android)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-riscv64-linux-gnu)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-riscv64-linux-musl)
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x64-mingw-ucrt)
       google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-x86-cygwin)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-x86-linux-android)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-x86_64-cygwin)
+      google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86_64-darwin)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-x86_64-linux-android)
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86_64-linux-gnu)
       google-protobuf (~> 4.26)
@@ -85,14 +110,20 @@ GEM
     webrick (1.8.2)
 
 PLATFORMS
-  arm64-darwin-20
-  arm64-darwin-21
-  arm64-darwin-22
-  arm64-darwin-24
-  arm64-darwin-25
+  aarch64-linux-android
+  arm-linux-androideabi
+  arm64-darwin
+  riscv64-linux-android
+  riscv64-linux-gnu
+  riscv64-linux-musl
+  ruby
   x64-mingw-ucrt
-  x86_64-darwin-20
+  x86-cygwin
+  x86-linux-android
+  x86_64-cygwin
+  x86_64-darwin
   x86_64-linux
+  x86_64-linux-android
 
 DEPENDENCIES
   jekyll
@@ -100,4 +131,4 @@ DEPENDENCIES
   webrick
 
 BUNDLED WITH
-   2.5.17
+   2.7.2
