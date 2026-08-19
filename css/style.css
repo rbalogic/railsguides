@@ -146,12 +146,14 @@ nav {
 
 nav a,
 nav a:focus {
+  display: inline-block;
   color: var(--header-link);
   text-decoration: none;
   font-weight: 300;
   font-size: 20px;
   letter-spacing: 1px;
   margin-left: 10px;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 nav a:after {
@@ -170,6 +172,7 @@ nav a:last-child:after {
 
 nav a:hover {
   text-decoration: underline;
+  transform: scale(1.05);
 }
 
 footer {
@@ -534,6 +537,7 @@ kbd {
   font-weight: 400;
   text-decoration: none;
   text-shadow: none;
+  transition: color 0.2s ease;
 }
 
 .navbar .nav > li > a:focus,
@@ -555,6 +559,7 @@ nav a:hover {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 999px;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .theme-toggle:hover,
@@ -562,6 +567,7 @@ nav a:hover {
   color: var(--header-link-hover);
   border-color: currentcolor;
   text-decoration: none;
+  transform: scale(1.05);
 }
 
 .theme-toggle:focus {
@@ -576,6 +582,19 @@ nav a:hover {
 .theme-toggle-mobile {
   float: right;
   margin: 7px 5px 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nav a,
+  .navbar .nav > li > a,
+  .theme-toggle {
+    transition: none;
+  }
+  nav a:hover,
+  .theme-toggle:hover,
+  .theme-toggle:focus-visible {
+    transform: none;
+  }
 }
 
 [class*="-notice"] {
