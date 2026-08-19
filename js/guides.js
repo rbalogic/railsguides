@@ -9,11 +9,7 @@ function saveTheme(theme) {
 }
 
 function updateThemeToggleLabels(theme) {
-  var nextTheme = theme === "dark" ? "light" : "dark";
-  var ariaLabel = "Switch to " + nextTheme + " theme";
-  var buttonLabel = nextTheme === "dark" ? "Dark Mode" : "Light Mode";
-
-  $("[data-theme-toggle]").text(buttonLabel).attr("aria-label", ariaLabel);
+  $("[data-theme-toggle]").text(theme === "dark" ? "Light Mode" : "Dark Mode");
 }
 
 function applyTheme(theme) {
