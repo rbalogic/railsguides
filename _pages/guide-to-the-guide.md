@@ -192,36 +192,41 @@ In a functional Rails application, there is an inbuilt system in place for trans
 If you look in your `ideas_controller.rb` you can see these actions and the associated behaviour, and the HTTP method that corresponds with each action:
 
 {% highlight rb %}
+# GET /ideas/1 or /ideas/1.json
 def show
-    @idea = Idea.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @idea }
-    end
-  end
-
-  # GET /ideas/new
-  # GET /ideas/new.json
+end
 {% endhighlight %}
 
 `show` - the controller action
 
+`# GET /ideas/1 or /ideas/1.json` - this is a comment to let us know which HTTP method and paths this action responds to.
+
+The show action looks empty, but two things happen behind the scenes. First, the line `before_action :set_idea, only: %i[ show edit update destroy ]` at the top of the controller tells Rails to run the `set_idea` method before these actions. This method loads the requested idea from the database and makes it available as `@idea`. Then Rails renders the view that matches the requested format: if the browser requests HTML, the view `show.html.erb` is rendered. If JSON is requested (the `/ideas/1.json` path), the view `show.json.jbuilder` is rendered instead, which returns the idea's data in JSON format so other programs can read it.
+
+Actions that change data (`create`, `update` and `destroy`) look more complex. They use a `respond_to` helper method, which tells Rails to execute the subsequent *block* of code (the code enclosed by the `do...end` syntax) and pick the HTML or JSON response depending on the nature of the request:
+
 {% highlight rb %}
-respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @idea }
+# POST /ideas or /ideas.json
+def create
+  @idea = Idea.new(idea_params)
+
+  respond_to do |format|
+    if @idea.save
+      format.html { redirect_to @idea, notice: "Idea was successfully created." }
+      format.json { render :show, status: :created, location: @idea }
+    else
+      format.html { render :new, status: :unprocessable_content }
+      format.json { render json: @idea.errors, status: :unprocessable_content }
+    end
+  end
+end
 {% endhighlight %}
 
 (This code is difficult to dissect with much clarity at this stage but if you persist with Rails you will get a better understanding as time progresses.)
 
-In the above definition of the show action, Rails is using a `respond_to` helper method, which tells Rails to execute the subsequent *block* of code (the code enclosed by the `do...end` syntax). This code contains two different formatting options depending on the nature of the request. If the browser requests HTML then the HTML code contained in the view that corresponds with this controller action (`show.html.erb`) is rendered. If JSON is requested then the view is bypassed and limited information is provided.
-
-`GET` - this is a comment to let us know which HTTP method is being executed.
-
 So, URL requests, translated into HTTP methods, are mapped to controller actions which tell Rails to return a view.
 
-When we insert the code `root :to => redirect("/ideas")` into our `config.rb`, it tells Rails to make the default root of our application <http://localhost:3000/ideas> (note Localhost is being used as the domain because our application is still in development, when you launch your application this domain will be different). This URL contains a path (`/ideas`) which, by default, maps the URL to the ‘index’ action of our ideas controller and renders the associated view; `index.html.erb`. The code `rm public/index.html` removes (`rm`) the `public/index.html` file, containing the “Welcome Aboard” code, which was the previous default root for our application.
+When we insert the code `root to: redirect("/ideas")` into our `config/routes.rb`, it tells Rails to make the default root of our application <http://localhost:3000/ideas> (note Localhost is being used as the domain because our application is still in development, when you launch your application this domain will be different). This URL contains a path (`/ideas`) which, by default, maps the URL to the ‘index’ action of our ideas controller and renders the associated view; `index.html.erb`.
 
 <a id="4_design"></a>
 ## *4.* Design
