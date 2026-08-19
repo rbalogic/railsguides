@@ -42,21 +42,23 @@ sudo apt-get install -y imagemagick
 Explain what is ImageMagick and how is it different from libraries/gems we used before?
 {% endcoach %}
 
-## Install a Ruby gem for ImageMagick
+## Install a Ruby gem for image resizing
 
-For Ruby to talk with ImageMagick, we'll be using the `mini_magick` Ruby gem. First we will need to add it to our app and install it.
+For Ruby to talk with ImageMagick, we'll be using the `image_processing` Ruby gem. A Ruby gem is a piece of software we can install in the app.
 
-Open `Gemfile` in your Text Editor and add this line:
-
-{% highlight ruby %}
-gem "mini_magick"
-{% endhighlight %}
-
-below the line:
+Open `Gemfile` in your Text Editor and find this line:
 
 {% highlight ruby %}
-gem "carrierwave"
+# gem "image_processing", "~> 1.2"
 {% endhighlight %}
+
+Remove the `#` sign at the front of the line and save the file. If the line is not in your `Gemfile`, add it without the `#` sign instead.
+
+{% coach %}
+Explain the concept of comments in code. Explain what libraries (Ruby gems) are and why they are useful. Describe what Open Source software is.
+
+Resources: RubyGems GitHub [introduction](https://github.com/rubygems/rubygems#rubygems-) and Wikipedia [OSS](https://en.wikipedia.org/wiki/Open-source_software)
+{% endcoach %}
 
 In the Terminal app run this command:
 
@@ -64,48 +66,40 @@ In the Terminal app run this command:
 bundle install
 {% endhighlight %}
 
-Make sure to (re)start your Rails server after installation.
+This will install the "image_processing" gem we enabled in the `Gemfile` file.
 
-## Tell your app to create thumbnails
+## Tell your app to use ImageMagick
 
-Now that we have a way to talk to ImageMagick through the `mini_magick` Ruby gem, we can tell the file upload gem `carrierwave` to create thumbnails for every picture you upload.
+By default Rails resizes images with a different tool, called libvips, which may not be available on your computer. Let's tell the app to use the ImageMagick tool we just installed.
 
-Open `app/uploaders/picture_uploader.rb` and find the line that looks like this:
-
-{% highlight ruby %}
-# include CarrierWave::MiniMagick
-{% endhighlight %}
-
-Remove the `#` sign at the front of the line.
-
-{% coach %}
-Explain the concept of comments in code.
-{% endcoach %}
-
-Below the line you just changed, add these lines:
+Open `config/application.rb` in your Text Editor and find the line that looks like this:
 
 {% highlight ruby %}
-version :thumb do
-  process :resize_to_fit => [150, 150]
-end
+class Application < Rails::Application
 {% endhighlight %}
 
-The images uploaded from now on will be resized to a smaller size, but the ones we already have haven't been updated. Instead, let's edit an idea and add a new picture. When saved the idea now has a thumbnail for the uploaded picture.
+Below this line, add this line and save the file:
+
+{% highlight ruby %}
+config.active_storage.variant_processor = :mini_magick
+{% endhighlight %}
+
+Make sure to (re)start your Rails server after changing the configuration.
 
 ## Display the thumbnail
 
-We haven't changed how the idea pictures are displayed, so it should still be showing the original larger image. Let's change the views to display the thumbnail instead.
+Active Storage can create resized versions of the uploaded pictures, called variants. The thumbnail variant is created the first time it is requested, so we only need to ask for it in the view.
 
 Open `app/views/ideas/_idea.html.erb` and change the line:
 
 {% highlight erb %}
-<%= image_tag(idea.picture_url, width: 150, height: 150, class: "img-thumbnail flex-shrink-0") if idea.picture? %>
+<%= image_tag(idea.picture, width: 150, height: 150, class: "img-thumbnail flex-shrink-0") if idea.picture.attached? %>
 {% endhighlight %}
 
 to this line:
 
 {% highlight erb %}
-<%= image_tag(idea.picture_url(:thumb), width: 150, height: 150, class: "img-thumbnail flex-shrink-0") if idea.picture? %>
+<%= image_tag(idea.picture.variant(resize_to_limit: [150, 150]), width: 150, height: 150, class: "img-thumbnail flex-shrink-0") if idea.picture.attached? %>
 {% endhighlight %}
 
 Take a look at the [list of ideas](http://localhost:3000/ideas) in the Browser to see if your ideas now have a thumbnail.

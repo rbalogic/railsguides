@@ -149,7 +149,7 @@ Next you're going to use Rails' scaffold functionality to generate a starting po
 Run the following command in the Terminal app:
 
 {% highlight sh %}
-rails generate scaffold idea name:string description:text picture:string
+rails generate scaffold idea name:string description:text
 {% endhighlight %}
 
 {% coach %}
