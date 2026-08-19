@@ -8,20 +8,17 @@ html {
   --header-background: #d3360b;
   --header-link: #ffffff;
   --header-link-hover: #f6e58d;
-  --footer-background: #f4f4f4;
   --footer-link: #111111;
   --guide-icon-background: #d0d0d0;
-  --guide-icon-hover: #d3360b;
+  --accent: #d3360b;
   --notice-background: #fef8ea;
   --coach-border: #8102bb;
   --kbd-background: #f7f7f7;
   --kbd-border: #cccccc;
   --kbd-shadow: #ffffff;
-  --kbd-text: #333333;
   --code-background: #f8f8f8;
   --code-border: #e2e2e2;
   --code-text: #2f2f2f;
-  --scroll-button: #d3360b;
   --scroll-button-hover: #555555;
   background: var(--page-background);
 }
@@ -36,20 +33,17 @@ html[data-theme="dark"] {
   --header-background: #8a2508;
   --header-link: #fff4eb;
   --header-link-hover: #ffd38a;
-  --footer-background: #191919;
   --footer-link: #f4ddcf;
   --guide-icon-background: #4f4f4f;
-  --guide-icon-hover: #c9471d;
+  --accent: #c9471d;
   --notice-background: #34291b;
   --coach-border: #bb7ae4;
   --kbd-background: #2b2b2b;
   --kbd-border: #555555;
   --kbd-shadow: #1c1c1c;
-  --kbd-text: #f1ece7;
   --code-background: #101010;
   --code-border: #2f2f2f;
   --code-text: #f1ece7;
-  --scroll-button: #c9471d;
   --scroll-button-hover: #7a7a7a;
 }
 
@@ -181,7 +175,7 @@ footer {
   overflow: hidden;
   width: 100%;
   padding: 40px 0;
-  background: var(--footer-background);
+  background: var(--page-background);
   line-height: 1.5;
   text-align: center;
 }
@@ -258,7 +252,7 @@ footer p:last-child {
 }
 a:hover .guide-icon,
 .guide-icon:hover {
-  background-color: var(--guide-icon-hover);
+  background-color: var(--accent);
   transition: 0.1s background-color ease-in;
   -webkit-transition: 0.1s background-color ease-in;
   -moz-transition: 0.1s background-color ease-in;
@@ -449,7 +443,7 @@ kbd {
   font-size: 11px;
   font-family: Arial, Helvetica, sans-serif;
   background-color: var(--kbd-background);
-  color: var(--kbd-text);
+  color: var(--code-text);
   -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px var(--kbd-shadow) inset;
   -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px var(--kbd-shadow) inset;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px var(--kbd-shadow) inset;
@@ -627,7 +621,7 @@ nav a:hover {
   font-size: 18px;
   border: none;
   outline: none;
-  background-color: var(--scroll-button);
+  background-color: var(--accent);
   color: white;
   cursor: pointer;
   padding: 14px;
