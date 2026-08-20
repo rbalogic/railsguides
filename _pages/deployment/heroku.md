@@ -153,7 +153,7 @@ if it restarts (for example, when you push a new version).
 
 In the [App](/app) tutorial the ability to attach a file to the Idea record is
 added, which results in new files being written to your applications
-`public/uploads` folder. The ephemeral storage in Heroku can be seen with the
+`storage` folder. The ephemeral storage in Heroku can be seen with the
 following steps:
 
 1. Launch the app with `heroku open`
@@ -177,7 +177,7 @@ could potentially be hosted anywhere) which your application can use as persiste
 While this functionality is a bit out of scope for this tutorial there are some
 resources available which you can use to find your way:
 
-* [How to: Make Carrierwave work on Heroku](https://github.com/carrierwaveuploader/carrierwave/wiki/How-to%3A-Make-Carrierwave-work-on-Heroku)
+* [Active Storage Overview: cloud storage services](https://guides.rubyonrails.org/active_storage_overview.html#setup)
 * [Amazon S3 – The Beginner’s Guide](https://www.hongkiat.com/blog/amazon-s3-the-beginners-guide/)
 
 As always if you require any more information or assistance your coaches will be able to assist.

@@ -52,14 +52,14 @@ Rails scaffolding is a command (`rails generate scaffold`) for introducing a new
 In Rails, a model represents a definition of a resource in your application, and how it should interact with other parts of the application. Depending on the nature of the website, these resources could be users, posts, groups etc. When a model is generated, a corresponding *database table* is created. This database table contains information that represents specified attributes of the model, e.g. for a User model, there might be a ‘name’ column and an ‘email’ column, and there will be rows for each subsequent user created. In the application you are creating, these resources are ideas and the model is ‘Idea’.
 
 {% highlight rb %}
-rails generate scaffold idea name:string description:text picture:string
+rails generate scaffold idea name:string description:text
 {% endhighlight %}
 
-In order to create our idea model, we use the `scaffold` command which includes an argument with the singular version of the model name (`idea`), and an argument with parameters (specifications) for the model’s attributes. This means that the `idea` model corresponds to a table in the database with columns for the attributes specified in the command: `name`, `description` and `picture`. The `scaffold` command also auto-generates an `id` attribute, referred to as the `primary key`, which is used to establish relationships between database tables.
+In order to create our idea model, we use the `scaffold` command which includes an argument with the singular version of the model name (`idea`), and an argument with parameters (specifications) for the model’s attributes. This means that the `idea` model corresponds to a table in the database with columns for the attributes specified in the command: `name` and `description`. The `scaffold` command also auto-generates an `id` attribute, referred to as the `primary key`, which is used to establish relationships between database tables.
 
 - `rails generate scaffold` - this calls the scaffold command.
 - `idea` - this tells the scaffold command what we want to call our model.
-- `name:string description:text picture:string` - provides a list of attributes we want our model (and the database table that goes with it) to have. The `string` and `text` parts of the argument determine the nature of each attribute, i.e. each description needs to be ‘text’, and not, for example, an ‘integer’ (or any other type of information).
+- `name:string description:text` - provides a list of attributes we want our model (and the database table that goes with it) to have. The `string` and `text` parts of the argument determine the nature of each attribute, i.e. each description needs to be ‘text’, and not, for example, an ‘integer’ (or any other type of information).
 
 ### The ideas table
 
@@ -69,7 +69,6 @@ In order to create our idea model, we use the `scaffold` command which includes 
 			<th>id</th>
 			<th>name</th>
 			<th>description</th>
-			<th>picture</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -77,17 +76,14 @@ In order to create our idea model, we use the `scaffold` command which includes 
 			<td>1</td>
 			<td>“Money-spinner”</td>
 			<td>“Open a moveable shop!”</td>
-			<td>“GreatIdea.jpg”</td>
 		</tr>
 		<tr>
 			<td>2</td>
 			<td>“Champagne For Breakfast!”</td>
 			<td>“We should do this every Friday!”</td>
-			<td>“Champagne.jpg”</td>
 		</tr>
 		<tr>
 			<td>3</td>
-			<td>...</td>
 			<td>...</td>
 			<td>...</td>
 		</tr>
@@ -288,10 +284,14 @@ In this code:
 
 In the [Add picture uploads](/uploads) we'll add a way to uploads pictures to ideas.
 
+### Active Storage
+
+Rails comes with a built-in feature for file uploads called *Active Storage*. It stores the uploaded files and uses two extra database tables to link the files to records, like the ideas in your application. This is why we run the `rails active_storage:install` and `rails db:migrate` commands before using it. The `has_one_attached :picture` line in the Idea model tells Rails that every idea can have one attached file, named `picture`.
+
 ### Libraries
 Many programming languages, including Ruby, use a wide range of libraries. In Ruby’s case, most of these libraries are released in the form of self-contained packages called *gems*, which contain all the information required to install and implement them. These gems are contained in your application’s `Gemfile` and if you look in this file you’ll notice that when you created your first Rails application it came with several gems that ensure your application functions correctly.
 
-Gems help simplify and prevent repetition in a developer’s code, in keeping with the DRY (Don’t Repeat Yourself) principle of software development. Gems may solve specific problems, add specific functionality, or address specific requirements, meaning that should another developer encounter a similar scenario, instead of writing new code, they can install a gem containing pre-written code. For example, “CarrierWave”, the gem you are adding to your gemfile is designed to make it easy to upload files to your application.
+Gems help simplify and prevent repetition in a developer’s code, in keeping with the DRY (Don’t Repeat Yourself) principle of software development. Gems may solve specific problems, add specific functionality, or address specific requirements, meaning that should another developer encounter a similar scenario, instead of writing new code, they can install a gem containing pre-written code. For example, “image_processing”, the gem you add in the [Create picture thumbnails](/thumbnails) guide, is designed to make it easy to resize images in your application.
 
 “Bundler” is the software Ruby uses to track and manage gems. The `bundle install` command runs Bundler and installs the gems specified in your Gemfile. You’ll notice the code `source "https://rubygems.org"` at the top of your Gemfile. Whenever you add a gem to your gemfile and run the `bundle install` command, this code tells your application to fetch the gem from <https://rubygems.org>. “RubyGems” is a Ruby-specific packaging system, the purpose of which is to simplify the creation, sharing and installation of gems.
 
@@ -305,10 +305,10 @@ The file `app/views/ideas/_form.html.erb` contains HTML code that determines the
 
 If you take a look in the `_form.html.erb` file, you will see the code `form_for` in the first line of code. This is a block used to create an HTML form. Using this block, we can access methods to put different input fields in the form.
 
-The code we are implementing, `<%= f.file_field :picture %>`, tells Rails to create a file input on the form and map the submitted information to the ‘picture’ attribute of an ‘idea’ in our ideas database table. We changed the code from `<%= f.text_field :picture %>` to `<%= f.file_field :picture %>` because `file_field` makes it easier for the user to select the image they wish to upload.
+The code we are implementing, `<%= form.file_field :picture %>`, tells Rails to create a file input on the form and attach the submitted file to the ‘picture’ attachment of an ‘idea’. We use `file_field` instead of `text_field` because `file_field` makes it easier for the user to select the image they wish to upload.
 
 In the code `<%= @idea.picture %>`, `@idea` is known as an *instance variable*. Instance variables are prefixed with an @ symbol and are defined in the controller action that corresponds with the view in which they are referenced. For the purposes of the code we are implementing, `@idea` is defined in the ‘show’ action of the `Ideas` controller, with the code `@idea = Idea.find(params[:id])`. This makes it available for us to use in the view `show.html.erb`. It could be defined differently in different controller actions (e.g. index or new). The code `@idea = Idea.find(params[:id])` uses the Rails `find` method to retrieve specific ideas from the database.
 
-The code that follows the `@idea` variable (`.picture`) tells Rails to access the ‘picture’ attribute of our resource (idea). By replacing the code  `<%= @idea.picture %>` with `<%= image_tag(@idea.picture_url...)` we are using the Ruby `image_tag` *helper* which translates to an HTML `<img>` tag (used to define images in HTML) but by default retrieves images from the folder public/images, which is where our uploaded images are stored. The `image_tag` helper also allows us to insert a block of code which creates a path to an image associated with a particular idea (`@idea.picture_url`).
+The code that follows the `@idea` variable (`.picture`) tells Rails to access the ‘picture’ attachment of our resource (idea). In the code `<%= image_tag(@idea.picture...)` we are using the Ruby `image_tag` *helper* which translates to an HTML `<img>` tag (used to define images in HTML). Given the picture attachment, the `image_tag` helper creates a path to the image associated with a particular idea.
 
-You will notice that within this block of code you are implementing we are also able to set a default width for each image (`:width => 600`). The final line of code `if @idea.picture?` tells Rails to check the corresponding database table to see whether a picture exists before rendering the code underneath.
+You will notice that within this block of code you are implementing we are also able to set a default width for each image (`width: 600`). The final part of the code, `if @idea.picture.attached?`, tells Rails to check whether a picture is attached to the idea before rendering the image tag.
